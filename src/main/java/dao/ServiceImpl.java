@@ -6,7 +6,7 @@ import java.sql.*;
 
 public abstract class ServiceImpl implements Service{
 
-    static Connection conn = null ;
+     static Connection conn = null ;
 
     static {
         String url = "jdbc:mysql://localhost:3306/bakerydb";

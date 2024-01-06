@@ -7,7 +7,7 @@ public class Order {
     private int orderId ;
     private User user ;
     private double totalAmt ;
-    List<String> productList = new LinkedList<>();
+    List<Product> productList = new LinkedList<>();
 
     public Order() {
     }
@@ -40,11 +40,11 @@ public class Order {
         this.totalAmt = totalAmt;
     }
 
-    public List<String> getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void addProduct(String product) {
+    public void addProduct(Product product) {
        productList.add(product);
     }
 }

@@ -9,6 +9,11 @@ public class Product {
     public Product() {
     }
 
+    public Product(String productName, double productPrice) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+    }
+
     public Product(String productName, double productPrice, int productQty) {
         this.productName = productName;
         this.productPrice = productPrice;
@@ -19,6 +24,11 @@ public class Product {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
+        this.productQty = productQty;
+    }
+
+    public Product(String productName, int productQty) {
+        this.productName = productName;
         this.productQty = productQty;
     }
 
