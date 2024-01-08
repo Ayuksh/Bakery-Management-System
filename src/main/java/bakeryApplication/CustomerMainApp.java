@@ -34,10 +34,10 @@ public class CustomerMainApp {
                 placeOrder(user);
                 break;
             case 3 :
-                // cancelOrder() ;
+                cancelOrder(user) ;
                 break;
             case 4:
-                // displayAllOrders();
+                displayAllOrders(user);
                 break;
             case 5 :
                 user = null ;
@@ -47,6 +47,14 @@ public class CustomerMainApp {
         }
 
         main(user);
+    }
+
+    private static void cancelOrder(User user) {
+        displayAllOrders(user);
+        System.out.println("SELECT ORDER ");
+        int ordId = sc.nextInt() ;
+        for (Product p :service.displayAllProduct(ordId))
+            System.out.println(p.getProductId() +"     "+ p.getProductName());
     }
 
 
@@ -92,4 +100,8 @@ public class CustomerMainApp {
 
     }
 
+    private static void displayAllOrders(User user) {
+       for (Order o :service.displayAllOrders(user))
+           System.out.println(o.getOrderId());
+    }
 }

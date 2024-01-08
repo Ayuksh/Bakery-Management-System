@@ -2,11 +2,9 @@ package dao;
 
 import dto.Order;
 import dto.Product;
+import dto.User;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +53,54 @@ public class CustomerService extends ServiceImpl{
             cstmt.execute();
         }
         return true ;
+    }
+
+    public  List<Order> displayAllOrders(User user)
+    {
+        List<Order> orderList = new ArrayList<>();
+        String selectQuery = "SELECT order_id from order_info where user_id = "+user.getUserId() ;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(selectQuery);
+            while (rs.next())
+            {
+                int ordId = rs.getInt(1);
+                Order o1 = new Order();
+                o1.setOrderId(ordId);
+                orderList.add(o1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderList;
+    }
+
+    public List<Product> displayAllProduct(int ordId) {
+        List<Product> productList = new ArrayList<>();
+
+        String selectProductQuery = "select p.product_id , p.product_name \n" +
+                "from order_product op inner join product_info p\n" +
+                "on op.product_id = p.product_id \n" +
+                "where order_id = ? ;";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(selectProductQuery);
+            pstmt.setInt(1 , ordId);
+            ResultSet rs = pstmt.executeQuery() ;
+
+            while (rs.next())
+            {
+                int pId = rs.getInt(1);
+                String pname = rs.getString(2);
+                Product p = new Product(pId , pname);
+                productList.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return productList;
     }
 }
